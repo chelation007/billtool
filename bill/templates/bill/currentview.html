@@ -1,0 +1,32 @@
+
+{% extends "bill/base.html" %}
+
+{% block content %}
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-10">
+
+            {% if productlist %}
+                 <h1>{{ productlist.count }} Current item{{ productlist.count|pluralize }}</h1>
+            {% else %}
+                           <h1>Current Stock</h1>
+            {% endif %}
+        </div>
+    </div>
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-10">
+        {% if productlist %}
+            <div class="list-group">
+                {% for product in productlist %}
+                    <a href="{% url 'viewproduct' product.id %}" class="list-group-item list-group-item-action list-group-item-danger">{{ product.name }} - {{ product.total_stock }}</a>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="text-center">
+                <h2>Looks like you don't have any stock! Add Some!!.</h2>
+            <br>
+            <a role="button" class="btn btn-primary" href="{% url 'addproduct' %}">Add a product</a>
+            </div>
+        {% endif %}
+        </div>
+    </div>
+{% endblock %}
